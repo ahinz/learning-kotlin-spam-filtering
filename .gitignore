@@ -1,0 +1,5 @@
+src/main/resources/spam
+src/main/resources/ham
+src/main/resources/*.bz2
+.gradle
+build
