@@ -1,4 +1,4 @@
-package spammy
+package spammy.bayes
 
 import java.util.HashMap
 

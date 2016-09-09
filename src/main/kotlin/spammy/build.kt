@@ -1,6 +1,6 @@
 package spammy.training
 
-import spammy.*
+import spammy.bayes.*
 
 import com.fasterxml.jackson.module.kotlin.*
 

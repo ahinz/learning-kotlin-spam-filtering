@@ -1,13 +1,14 @@
 package spammy
 
-import spammy.training.*
-
 import com.fasterxml.jackson.module.kotlin.*
 
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.*
 
 import kotlin.test.*
+
+import spammy.training.*
+import spammy.bayes.*
 
 fun assertClose(a: Double, b: Double, ε: Double = 0.000001, message: String? = null) {
     val Δ = Math.abs(a - b)

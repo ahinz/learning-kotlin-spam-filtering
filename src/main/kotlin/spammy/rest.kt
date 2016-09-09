@@ -1,4 +1,4 @@
-package spammy
+package spammy.rest
 
 import org.springframework.web.bind.annotation.*
 import com.fasterxml.jackson.module.kotlin.*
@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.kotlin.*
 import java.io.FileNotFoundException
 
 import spammy.training.*
+import spammy.bayes.*
 
 data class MessageResult(val probSpam: Double)
 
