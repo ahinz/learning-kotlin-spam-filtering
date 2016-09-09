@@ -30,8 +30,6 @@ infix fun <T> Set<T>.shouldNotContain(t: T) {
 class TrainingSpec: Spek({
   describe("training") {
     it("should parse messages") {
-      //val string = File("unixdict.txt").readText(charset = Charsets.UTF_8)
-      // new File(classLoader.getResource("file/test.xml").getFile());
       val exampleMsg = javaClass.getClassLoader().getResourceAsStream("example_msg.txt").reader().readText()
 
       val words = parseMsg(exampleMsg)
@@ -45,6 +43,8 @@ class TrainingSpec: Spek({
       // Should contain some of the message words
       words shouldContain "reach"
       words shouldContain "repository"
+
+      println(getMessagesFromDirectory("ham").count())
     }
   }
 })

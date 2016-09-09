@@ -1,5 +1,6 @@
 src/main/resources/spam
 src/main/resources/ham
 src/main/resources/*.bz2
+src/main/resources/model.json
 .gradle
 build

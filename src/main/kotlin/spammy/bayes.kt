@@ -30,6 +30,12 @@ data class Word(val hamMessages: Int, val spamMessages: Int) {
 // Mutable classifier, immutable would be cool but kotlin doesn't appear to have
 // efficient immutable collections
 data class BayesClassifier(val probMsgIsSpam: Double, var nHam: Int, var nSpam: Int, val nSeen: MutableMap<String, Word>) {
+  companion object {
+    fun emptyClassifier(probMsgIsSpam: Double = 0.5): BayesClassifier {
+      return BayesClassifier(probMsgIsSpam, 0, 0, mutableMapOf())
+    }
+  }
+
   val emptyWord = Word(0,0)
 
   fun toMap(): Map<String, Any> {

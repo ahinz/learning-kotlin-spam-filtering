@@ -1,5 +1,7 @@
 package spammy
 
+import spammy.training.*
+
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
@@ -15,6 +17,8 @@ open class Application {
 
 
 fun main(args: Array<String>) {
-  println(listOf(*args))
-  //Application().main(args)
+  if (args.count() == 1 && args.get(0) == "build-model")
+    train()
+  else
+    Application().main(args)
 }
