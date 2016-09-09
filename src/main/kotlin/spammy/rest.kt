@@ -1,22 +1,37 @@
 package spammy
 
-import java.util.concurrent.atomic.AtomicLong
 import org.springframework.web.bind.annotation.*
+import com.fasterxml.jackson.module.kotlin.*
 
-val template = "Hello, %s!"
+import java.io.FileNotFoundException
 
-data class Greeting(val id: Long, val content: String)
+import spammy.training.*
+
+data class MessageResult(val probSpam: Double)
+
+fun loadModel(path: String = "model.json"): BayesClassifier {
+  try {
+    val json = SpamController::class.java.getClassLoader().getResourceAsStream(path).reader().readText()
+    val mapper = jacksonObjectMapper()
+
+    return mapper.readValue<BayesClassifier>(json)
+  } catch (e: Exception) {
+    println("ERROR: Model not found... check the readme for model generation instructions")
+    throw e
+  }
+}
+
 
 @RestController
-class GreetingController {
-        // Can't be the same name?
-        companion object {
-                val counter = AtomicLong()
-        }
+class SpamController {
+  companion object {
+    val model: BayesClassifier by lazy { loadModel() }
+  }
 
 
-        @RequestMapping("/greeting")
-        fun greeting(@RequestParam(value="name", defaultValue="World") name: String): Greeting {
-                return Greeting(GreetingController.counter.incrementAndGet(), String.format(template, name))
-        }
+  @RequestMapping(value="/is-spam", method=arrayOf(RequestMethod.POST))
+  fun isSpam(@RequestBody body: String): MessageResult {
+    val p = SpamController.model.probMsgIsSpam(parseMsg(body).toList())
+    return MessageResult(p ?: -1.0)
+  }
 }
